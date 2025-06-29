@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música Instrumental para Eventos</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #D4AF37;
+            --light: #F5F5F5;
+            --dark: #333333;
+            --gray: #777777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('daniel.png') no-repeat center center/contain;
+            height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            background: #e6c352;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .calculator {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .result {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            text-align: right;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+/* ========== RESPONSIVO PARA CELULAR ========== */
+@media (max-width: 767px) {
+    header {
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 20px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    header p {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    .btn {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .calculator {
+        padding: 25px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        padding: 10px;
+    }
+
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ajustes para telas muito pequenas (ex: iPhone SE) */
+@media (max-width: 374px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .feature-card {
+        padding: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Música Ambiente de Excelência para Seu Evento</h1>
+        <p>Violão Erudito com 20+ Anos de Experiência - Criando Atmosferas Inesquecíveis</p>
+        <a href="#calculator" class="btn">Calcule Agora o Valor para Seu Evento</a>
+    </header>
+
+    <section class="container">
+        <h2 class="section-title">Diferenciais Exclusivos de Daniel</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div>🎓</div>
+                <h3>Formação Acadêmica</h3>
+                <p>Licenciado em Música pela UFRGS com formação desde os 10 anos em violão erudito</p>
+            </div>
+            <div class="feature-card">
+                <div>⏳</div>
+                <h3>Experiência Consagrada</h3>
+                <p>Mais de três décadas de performances profissionais em eventos exclusivos</p>
+            </div>
+            <div class="feature-card">
+                <div>🎼</div>
+                <h3>Repertório Sofisticado</h3>
+                <p>Seleção de peças instrumentais antigas cuidadosamente curadas</p>
+            </div>
+            <div class="feature-card">
+                <div>👔</div>
+                <h3>Postura Impecável</h3>
+                <p>Apresentações sempre com traje social preto e abordagem profissional</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="container">
+        <h2 class="section-title">Calcule Seu Orçamento Com Daniel Gehlen</h2>
+        <div class="calculator">
+            <form id="eventForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" placeholder="Digite o CEP do evento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Endereço Completo</label>
+                        <input type="text" id="address" placeholder="Endereço do evento" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Data do Evento</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Horário de Início</label>
+                        <input type="time" id="time" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration">Duração da Apresentação</label>
+                    <select id="duration" required>
+                        <option value="1">1 hora (R$ 300)</option>
+                        <option value="1.5">1 hora e 30 minutos (R$ 450)</option>
+                        <option value="2">2 horas (R$ 600)</option>
+                        <option value="2.5">2 horas e 30 minutos (R$ 750)</option>
+                        <option value="3">3 horas (R$ 900)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="environment">Tipo de Ambiente</label>
+                    <select id="environment" required>
+                        <option value="closed">Fechado (até 30 pessoas - acústico)</option>
+                        <option value="open">Aberto (necessário equipamento de som)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guests">Número Estimado de Convidados</label>
+                    <input type="number" id="guests" min="1" value="30" required>
+                    <small id="soundWarning" style="color: red; display: none;">Para mais de 30 pessoas, é necessário contratar equipamento de som profissional</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="arrivalTime">Chegar com Quantos Minutos de Antecedência?</label>
+                    <select id="arrivalTime">
+                        <option value="0">Não é necessário chegar antes</option>
+                        <option value="30">30 minutos antes (R$ 50)</option>
+                        <option value="60">1 hora antes (R$ 100)</option>
+                        <option value="90">1 hora e 30 minutos antes (R$ 150)</option>
+                    </select>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="stayAfter" name="stayAfter">
+                    <label for="stayAfter">Ficar no local após a apresentação (R$ 50 a cada 30 minutos)</label>
+                </div>
+                
+                <div class="form-group" id="stayAfterGroup" style="display: none;">
+                    <label for="stayAfterDuration">Tempo adicional após apresentação</label>
+                    <select id="stayAfterDuration">
+                        <option value="0">0 minutos</option>
+                        <option value="30">30 minutos (R$ 50)</option>
+                        <option value="60">1 hora (R$ 100)</option>
+                        <option value="90">1 hora e 30 minutos (R$ 150)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Observações Especiais</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                
+                <div class="result">
+                    <h3>Resumo do Orçamento</h3>
+                    <div class="result-item">
+                        <span>Apresentação:</span>
+                        <span id="performanceCost">R$ 300,00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Deslocamento:</span>
+                        <span id="transportCost">R$ 0,00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Chegar antes:</span>
+                        <span id="arrivalCost">R$ 0,00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Ficar depois:</span>
+                        <span id="stayAfterCost">R$ 0,00</span>
+                    </div>
+                    <div class="result-item total">
+                        <span>TOTAL:</span>
+                        <span id="totalCost">R$ 300,00</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">Enviar Pedido para o Músico</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Depoimentos</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>"Transformou nosso jantar corporativo em uma experiência sensorial inesquecível"</p>
+                <div class="testimonial-author">- Ana L., Porto Alegre</div>
+            </div>
+            <div class="testimonial">
+                <p>"A postura profissional e talento excepcional superaram todas as expectativas"</p>
+                <div class="testimonial-author">- Carlos M., Gramado</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Reserve Agora Seu Evento Musical Exclusivo</h2>
+        <p>Som acústico ideal para até 30 pessoas em ambientes fechados</p>
+        <p>Traje social preto padrão em todas apresentações</p>
+        <p>Repertório a não é daptável. Ele é escolhido com qualidade pelo músico para o som ambiente de classe e prestígio para todos os eventos</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cepInput = document.getElementById('cep');
+            const addressInput = document.getElementById('address');
+            const durationSelect = document.getElementById('duration');
+            const guestsInput = document.getElementById('guests');
+            const soundWarning = document.getElementById('soundWarning');
+            const environmentSelect = document.getElementById('environment');
+            const arrivalTimeSelect = document.getElementById('arrivalTime');
+            const stayAfterCheckbox = document.getElementById('stayAfter');
+            const stayAfterGroup = document.getElementById('stayAfterGroup');
+            const stayAfterDurationSelect = document.getElementById('stayAfterDuration');
+            const performanceCostSpan = document.getElementById('performanceCost');
+            const transportCostSpan = document.getElementById('transportCost');
+            const arrivalCostSpan = document.getElementById('arrivalCost');
+            const stayAfterCostSpan = document.getElementById('stayAfterCost');
+            const totalCostSpan = document.getElementById('totalCost');
+            const eventForm = document.getElementById('eventForm');
+            
+            let transportCost = 0;
+            
+            cepInput.addEventListener('blur', function() {
+                const cep = cepInput.value.replace(/\D/g, '');
+                if (cep.length === 8) {
+                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.erro) {
+                                addressInput.value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+                                calculateTransportCost();
+                            }
+                        })
+                        .catch(error => console.error('Erro ao buscar CEP:', error));
+                }
+            });
+            
+            durationSelect.addEventListener('change', updateCosts);
+            guestsInput.addEventListener('input', function() {
+                if (parseInt(guestsInput.value) > 30) {
+                    soundWarning.style.display = 'block';
+                } else {
+                    soundWarning.style.display = 'none';
+                }
+            });
+            
+            environmentSelect.addEventListener('change', function() {
+                if (environmentSelect.value === 'open') {
+                    soundWarning.style.display = 'block';
+                    soundWarning.textContent = 'Para ambientes abertos, é obrigatório contratar equipamento de som profissional';
+                } else if (parseInt(guestsInput.value) > 30) {
+                    soundWarning.style.display = 'block';
+                    soundWarning.textContent = 'Para mais de 30 pessoas, é necessário contratar equipamento de som profissional';
+                } else {
+                    soundWarning.style.display = 'none';
+                }
+            });
+            
+            arrivalTimeSelect.addEventListener('change', updateCosts);
+            
+            stayAfterCheckbox.addEventListener('change', function() {
+                if (stayAfterCheckbox.checked) {
+                    stayAfterGroup.style.display = 'block';
+                } else {
+                    stayAfterGroup.style.display = 'none';
+                    stayAfterDurationSelect.value = '0';
+                    updateCosts();
+                }
+            });
+            
+            stayAfterDurationSelect.addEventListener('change', updateCosts);
+            
+            function calculateTransportCost() {
+                transportCost = Math.floor(Math.random() * 100) + 50;
+                transportCostSpan.textContent = `R$ ${transportCost},00`;
+                updateCosts();
+            }
+            
+            function updateCosts() {
+                const duration = parseFloat(durationSelect.value);
+                const performanceCost = duration * 300;
+                const arrivalTime = parseInt(arrivalTimeSelect.value);
+                const arrivalCost = Math.floor(arrivalTime / 30) * 50;
+                
+                let stayAfterCost = 0;
+                if (stayAfterCheckbox.checked) {
+                    const stayAfterDuration = parseInt(stayAfterDurationSelect.value);
+                    stayAfterCost = Math.floor(stayAfterDuration / 30) * 50;
+                }
+                
+                performanceCostSpan.textContent = `R$ ${performanceCost.toFixed(2).replace('.', ',')}`;
+                arrivalCostSpan.textContent = `R$ ${arrivalCost.toFixed(2).replace('.', ',')}`;
+                stayAfterCostSpan.textContent = `R$ ${stayAfterCost.toFixed(2).replace('.', ',')}`;
+                
+                const total = performanceCost + transportCost + arrivalCost + stayAfterCost;
+                totalCostSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            }
+            
+            eventForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    address: addressInput.value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    duration: durationSelect.options[durationSelect.selectedIndex].text,
+                    environment: environmentSelect.options[environmentSelect.selectedIndex].text,
+                    guests: guestsInput.value,
+                    arrivalTime: arrivalTimeSelect.options[arrivalTimeSelect.selectedIndex].text,
+                    stayAfter: stayAfterCheckbox.checked ? stayAfterDurationSelect.options[stayAfterDurationSelect.selectedIndex].text : 'Não',
+                    notes: document.getElementById('notes').value,
+                    performanceCost: performanceCostSpan.textContent,
+                    transportCost: transportCostSpan.textContent,
+                    arrivalCost: arrivalCostSpan.textContent,
+                    stayAfterCost: stayAfterCostSpan.textContent,
+                    totalCost: totalCostSpan.textContent
+                };
+                
+                const subject = `Novo Pedido para Evento em ${formData.date}`;
+                const body = `
+Detalhes do Evento:
+- Endereço: ${formData.address}
+- Data: ${formData.date} às ${formData.time}
+- Duração: ${formData.duration}
+- Ambiente: ${formData.environment}
+- Convidados: ${formData.guests}
+- Chegar antes: ${formData.arrivalTime}
+- Ficar depois: ${formData.stayAfter}
+- Observações: ${formData.notes}
+
+Orçamento:
+- Apresentação: ${formData.performanceCost}
+- Deslocamento: ${formData.transportCost}
+- Chegar antes: ${formData.arrivalCost}
+- Ficar depois: ${formData.stayAfterCost}
+- TOTAL: ${formData.totalCost}
+                `;
+                
+                alert('Pedido enviado com sucesso! O músico entrará em contato para confirmar os detalhes.\n\n' + body);
+                
+                eventForm.reset();
+                updateCosts();
+            });
+            
+            updateCosts();
+        });
+    </script>
+</body>
+</html>
