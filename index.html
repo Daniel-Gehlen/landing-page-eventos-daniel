@@ -763,87 +763,159 @@
       </p>
     </footer>
 
-    <> document.addEventListener("DOMContentLoaded", function () { const
-    cepInput = document.getElementById("cep"); const addressInput =
-    document.getElementById("address"); const durationSelect =
-    document.getElementById("duration"); const guestsInput =
-    document.getElementById("guests"); const soundWarning =
-    document.getElementById("soundWarning"); const environmentSelect =
-    document.getElementById("environment"); const arrivalTimeSelect =
-    document.getElementById("arrivalTime"); const stayAfterCheckbox =
-    document.getElementById("stayAfter"); const stayAfterGroup =
-    document.getElementById("stayAfterGroup"); const stayAfterDurationSelect =
-    document.getElementById("stayAfterDuration"); const performanceCostSpan =
-    document.getElementById("performanceCost"); const transportCostSpan =
-    document.getElementById("transportCost"); const arrivalCostSpan =
-    document.getElementById("arrivalCost"); const stayAfterCostSpan =
-    document.getElementById("stayAfterCost"); const totalCostSpan =
-    document.getElementById("totalCost"); const eventForm =
-    document.getElementById("eventForm"); let transportCost = 0;
-    cepInput.addEventListener("blur", function () { const cep =
-    cepInput.value.replace(/\D/g, ""); if (cep.length === 8) {
-    fetch(`https://viacep.com.br/ws/${cep}/json/`) .then((response) =>
-    response.json()) .then((data) => { if (!data.erro) { addressInput.value =
-    `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
-    calculateTransportCost(); } }) .catch((error) => console.error("Erro ao
-    buscar CEP:", error)); } }); durationSelect.addEventListener("change",
-    updateCosts); guestsInput.addEventListener("input", function () { if
-    (parseInt(guestsInput.value) > 30) { soundWarning.style.display = "block"; }
-    else { soundWarning.style.display = "none"; } });
-    environmentSelect.addEventListener("change", function () { if
-    (environmentSelect.value === "open") { soundWarning.style.display = "block";
-    soundWarning.textContent = "Para ambientes abertos, é obrigatório contratar
-    equipamento de som profissional"; } else if (parseInt(guestsInput.value) >
-    30) { soundWarning.style.display = "block"; soundWarning.textContent = "Para
-    mais de 30 pessoas, é necessário contratar equipamento de som profissional";
-    } else { soundWarning.style.display = "none"; } });
-    arrivalTimeSelect.addEventListener("change", updateCosts);
-    stayAfterCheckbox.addEventListener("change", function () { if
-    (stayAfterCheckbox.checked) { stayAfterGroup.style.display = "block"; } else
-    { stayAfterGroup.style.display = "none"; stayAfterDurationSelect.value =
-    "0"; updateCosts(); } }); stayAfterDurationSelect.addEventListener("change",
-    updateCosts); function calculateTransportCost() { transportCost =
-    Math.floor(Math.random() * 100) + 50; transportCostSpan.textContent = `R$
-    ${transportCost},00`; updateCosts(); } function updateCosts() { const
-    duration = parseFloat(durationSelect.value); const performanceCost =
-    duration * 300; const arrivalTime = parseInt(arrivalTimeSelect.value); const
-    arrivalCost = Math.floor(arrivalTime / 30) * 50; let stayAfterCost = 0; if
-    (stayAfterCheckbox.checked) { const stayAfterDuration =
-    parseInt(stayAfterDurationSelect.value); stayAfterCost =
-    Math.floor(stayAfterDuration / 30) * 50; } performanceCostSpan.textContent =
-    `R$ ${performanceCost .toFixed(2) .replace(".", ",")}`;
-    arrivalCostSpan.textContent = `R$ ${arrivalCost .toFixed(2) .replace(".",
-    ",")}`; stayAfterCostSpan.textContent = `R$ ${stayAfterCost .toFixed(2)
-    .replace(".", ",")}`; const total = performanceCost + transportCost +
-    arrivalCost + stayAfterCost; totalCostSpan.textContent = `R$ ${total
-    .toFixed(2) .replace(".", ",")}`; } eventForm.addEventListener("submit",
-    function (e) { e.preventDefault(); const formData = { address:
-    addressInput.value, date: document.getElementById("date").value, time:
-    document.getElementById("time").value, duration:
-    durationSelect.options[durationSelect.selectedIndex].text, environment:
-    environmentSelect.options[environmentSelect.selectedIndex].text, guests:
-    guestsInput.value, arrivalTime:
-    arrivalTimeSelect.options[arrivalTimeSelect.selectedIndex].text, stayAfter:
-    stayAfterCheckbox.checked ? stayAfterDurationSelect.options[
-    stayAfterDurationSelect.selectedIndex ].text : "Não", notes:
-    document.getElementById("notes").value, performanceCost:
-    performanceCostSpan.textContent, transportCost:
-    transportCostSpan.textContent, arrivalCost: arrivalCostSpan.textContent,
-    stayAfterCost: stayAfterCostSpan.textContent, totalCost:
-    totalCostSpan.textContent, }; const subject = `Novo Pedido para Evento em
-    ${formData.date}`; const body = ` Detalhes do Evento: - Endereço:
-    ${formData.address} - Data: ${formData.date} às ${formData.time} - Duração:
-    ${formData.duration} - Ambiente: ${formData.environment} - Convidados:
-    ${formData.guests} - Chegar antes: ${formData.arrivalTime} - Ficar depois:
-    ${formData.stayAfter} - Observações: ${formData.notes} Orçamento: -
-    Apresentação: ${formData.performanceCost} - Deslocamento:
-    ${formData.transportCost} - Chegar antes: ${formData.arrivalCost} - Ficar
-    depois: ${formData.stayAfterCost} - TOTAL: ${formData.totalCost} `; alert(
-    "Pedido enviado com sucesso! O músico entrará em contato para confirmar os
-    detalhes.\n\n" + body ); eventForm.reset(); updateCosts(); });
-    updateCosts(); });
+<script>
+    // Sigma 1: Basic Event Listeners and Initial Setup
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sigma 2: DOM Element References
+        const cepInput = document.getElementById("cep");
+        const addressInput = document.getElementById("address");
+        const durationSelect = document.getElementById("duration");
+        const guestsInput = document.getElementById("guests");
+        const soundWarning = document.getElementById("soundWarning");
+        const environmentSelect = document.getElementById("environment");
+        const arrivalTimeSelect = document.getElementById("arrivalTime");
+        const stayAfterCheckbox = document.getElementById("stayAfter");
+        const stayAfterGroup = document.getElementById("stayAfterGroup");
+        const stayAfterDurationSelect = document.getElementById("stayAfterDuration");
+        const performanceCostSpan = document.getElementById("performanceCost");
+        const transportCostSpan = document.getElementById("transportCost");
+        const arrivalCostSpan = document.getElementById("arrivalCost");
+        const stayAfterCostSpan = document.getElementById("stayAfterCost");
+        const totalCostSpan = document.getElementById("totalCost");
+        const eventForm = document.getElementById("eventForm");
 
-      document.addEventListener("DOMContentLoaded", function () {
+        let transportCost = 0;
+
+        // Sigma 3: CEP Input Handling
+        cepInput.addEventListener("blur", function () {
+            const cep = cepInput.value.replace(/\D/g, "");
+            if (cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (!data.erro) {
+                            addressInput.value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+                            calculateTransportCost();
+                        }
+                    })
+                    .catch((error) => console.error("Erro ao buscar CEP:", error));
+            }
+        });
+
+        // Sigma 4: Event Listeners for Cost Calculation
+        durationSelect.addEventListener("change", updateCosts);
+        guestsInput.addEventListener("input", function () {
+            if (parseInt(guestsInput.value) > 30) {
+                soundWarning.style.display = "block";
+                soundWarning.textContent = "Para mais de 30 pessoas, é necessário contratar equipamento de som profissional";
+            } else {
+                soundWarning.style.display = "none";
+            }
+        });
+
+        environmentSelect.addEventListener("change", function () {
+            if (environmentSelect.value === "open") {
+                soundWarning.style.display = "block";
+                soundWarning.textContent = "Para ambientes abertos, é obrigatório contratar equipamento de som profissional";
+            } else if (parseInt(guestsInput.value) > 30) {
+                soundWarning.style.display = "block";
+                soundWarning.textContent = "Para mais de 30 pessoas, é necessário contratar equipamento de som profissional";
+            } else {
+                soundWarning.style.display = "none";
+            }
+        });
+
+        arrivalTimeSelect.addEventListener("change", updateCosts);
+
+        stayAfterCheckbox.addEventListener("change", function () {
+            if (stayAfterCheckbox.checked) {
+                stayAfterGroup.style.display = "block";
+            } else {
+                stayAfterGroup.style.display = "none";
+                stayAfterDurationSelect.value = "0";
+                updateCosts();
+            }
+        });
+
+        stayAfterDurationSelect.addEventListener("change", updateCosts);
+
+        // Sigma 5: Cost Calculation Functions
+        function calculateTransportCost() {
+            transportCost = Math.floor(Math.random() * 100) + 50;
+            transportCostSpan.textContent = `R$ ${transportCost},00`;
+            updateCosts();
+        }
+
+        function updateCosts() {
+            const duration = parseFloat(durationSelect.value);
+            const performanceCost = duration * 300;
+            const arrivalTime = parseInt(arrivalTimeSelect.value);
+            const arrivalCost = Math.floor(arrivalTime / 30) * 50;
+            let stayAfterCost = 0;
+
+            if (stayAfterCheckbox.checked) {
+                const stayAfterDuration = parseInt(stayAfterDurationSelect.value);
+                stayAfterCost = Math.floor(stayAfterDuration / 30) * 50;
+            }
+
+            performanceCostSpan.textContent = `R$ ${performanceCost.toFixed(2).replace(".", ",")}`;
+            arrivalCostSpan.textContent = `R$ ${arrivalCost.toFixed(2).replace(".", ",")}`;
+            stayAfterCostSpan.textContent = `R$ ${stayAfterCost.toFixed(2).replace(".", ",")}`;
+
+            const total = performanceCost + transportCost + arrivalCost + stayAfterCost;
+            totalCostSpan.textContent = `R$ ${total.toFixed(2).replace(".", ",")}`;
+        }
+
+        // Sigma 6: Form Submission Handling
+        eventForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = {
+                address: addressInput.value,
+                date: document.getElementById("date").value,
+                time: document.getElementById("time").value,
+                duration: durationSelect.options[durationSelect.selectedIndex].text,
+                environment: environmentSelect.options[environmentSelect.selectedIndex].text,
+                guests: guestsInput.value,
+                arrivalTime: arrivalTimeSelect.options[arrivalTimeSelect.selectedIndex].text,
+                stayAfter: stayAfterCheckbox.checked ?
+                    stayAfterDurationSelect.options[stayAfterDurationSelect.selectedIndex].text : "Não",
+                notes: document.getElementById("notes").value,
+                performanceCost: performanceCostSpan.textContent,
+                transportCost: transportCostSpan.textContent,
+                arrivalCost: arrivalCostSpan.textContent,
+                stayAfterCost: stayAfterCostSpan.textContent,
+                totalCost: totalCostSpan.textContent,
+            };
+
+            const subject = `Novo Pedido para Evento em ${formData.date}`;
+            const body = `Detalhes do Evento:
+- Endereço: ${formData.address}
+- Data: ${formData.date} às ${formData.time}
+- Duração: ${formData.duration}
+- Ambiente: ${formData.environment}
+- Convidados: ${formData.guests}
+- Chegar antes: ${formData.arrivalTime}
+- Ficar depois: ${formData.stayAfter}
+- Observações: ${formData.notes}
+
+Orçamento:
+- Apresentação: ${formData.performanceCost}
+- Deslocamento: ${formData.transportCost}
+- Chegar antes: ${formData.arrivalCost}
+- Ficar depois: ${formData.stayAfterCost}
+- TOTAL: ${formData.totalCost}`;
+
+            alert("Pedido enviado com sucesso! O músico entrará em contato para confirmar os detalhes.\n\n" + body);
+            eventForm.reset();
+            updateCosts();
+        });
+
+        // Initialize costs
+        updateCosts();
+    });
+
+    // Sigma 7: Audio Player Functionality
+    document.addEventListener("DOMContentLoaded", function () {
         const audioPlayer = document.getElementById("audio-player");
         const playBtn = document.getElementById("play-btn");
         const pauseBtn = document.getElementById("pause-btn");
@@ -854,65 +926,64 @@
         const songTitle = document.getElementById("song-title");
         const artist = document.getElementById("artist");
 
-        // Extrair metadados e capa do arquivo MP3
+        // Sigma 8: Metadata Extraction
         function extractMetadata() {
-          fetch("musica.mp3")
-            .then((response) => response.blob())
-            .then((blob) => {
-              const url = URL.createObjectURL(blob);
-              audioPlayer.src = url;
+            fetch("musica.mp3")
+                .then((response) => response.blob())
+                .then((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    audioPlayer.src = url;
 
-              // Tentar extrair metadados (isso depende da biblioteca jsmediatags)
-              if (typeof jsmediatags !== "undefined") {
-                jsmediatags.read(blob, {
-                  onSuccess: function (tag) {
-                    if (tag.tags.title) songTitle.textContent = tag.tags.title;
-                    if (tag.tags.artist) artist.textContent = tag.tags.artist;
+                    if (typeof jsmediatags !== "undefined") {
+                        jsmediatags.read(blob, {
+                            onSuccess: function (tag) {
+                                if (tag.tags.title) songTitle.textContent = tag.tags.title;
+                                if (tag.tags.artist) artist.textContent = tag.tags.artist;
 
-                    // Extrair capa do álbum
-                    if (tag.tags.picture) {
-                      const picture = tag.tags.picture;
-                      const base64String = arrayBufferToBase64(picture.data);
-                      albumCover.src = `data:${picture.format};base64,${base64String}`;
-                      noCover.style.display = "none";
+                                if (tag.tags.picture) {
+                                    const picture = tag.tags.picture;
+                                    const base64String = arrayBufferToBase64(picture.data);
+                                    albumCover.src = `data:${picture.format};base64,${base64String}`;
+                                    noCover.style.display = "none";
+                                }
+                            },
+                            onError: function (error) {
+                                console.log("Error reading metadata:", error);
+                            }
+                        });
                     }
-                  },
-                  onError: function (error) {
-                    console.log("Error reading metadata:", error);
-                  },
                 });
-              }
-            });
         }
 
-        // Função auxiliar para converter ArrayBuffer para Base64
+        // Sigma 9: Helper Functions
         function arrayBufferToBase64(buffer) {
-          let binary = "";
-          const bytes = new Uint8Array(buffer);
-          for (let i = 0; i < bytes.byteLength; i++) {
-            binary += String.fromCharCode(bytes[i]);
-          }
-          return window.btoa(binary);
+            let binary = "";
+            const bytes = new Uint8Array(buffer);
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
         }
 
-        // Controles do player
+        // Sigma 10: Player Controls
         playBtn.addEventListener("click", () => audioPlayer.play());
         pauseBtn.addEventListener("click", () => audioPlayer.pause());
         stopBtn.addEventListener("click", () => {
-          audioPlayer.pause();
-          audioPlayer.currentTime = 0;
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
         });
         volumeSlider.addEventListener("input", () => {
-          audioPlayer.volume = volumeSlider.value;
+            audioPlayer.volume = volumeSlider.value;
         });
 
-        // Inicializar
+        // Initialize player
         extractMetadata();
-      });
+    });
 
-      // Para extrair metadados completos, você precisaria incluir a biblioteca jsmediatags
-      src =
-        "https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.7/jsmediatags.min.js";
-    </script>
+    // Load jsmediatags library for metadata extraction
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.7/jsmediatags.min.js";
+    document.head.appendChild(script);
+</script>
   </body>
 </html>
